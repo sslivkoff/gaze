@@ -9,10 +9,14 @@ readme = "README.md"
 requires-python = ">=3.7"
 dynamic = ["version", "description"]
 license = {file = "LICENSE"}
+dependencies = [
+    'fastapi',
+    'unicorn',
+    'Jinja2',
+]
 
 [project.scripts]
 gaze = "gaze.cli.cli_run:run_cli"
 
 [tool.flit.module]
 name = "gaze"
-

@@ -15,26 +15,29 @@ def load_ipynb(path: str) -> spec.Notebook:
 
 
 def extract_notebook_images(
-    path_or_content: str | spec.Notebook,
+    notebook: str | spec.Notebook,
     output_dir: str | None = None,
     verbose: bool = True,
-) -> None:
+) -> typing.Sequence[str]:
 
     # load notebook
-    if isinstance(path_or_content, str):
-        path = path_or_content
+    if isinstance(notebook, str):
+        path = notebook
         content = load_ipynb(path=path)
-    elif isinstance(path_or_content, dict):
-        content = path_or_content
+    elif isinstance(notebook, dict):
+        content = notebook
 
     # extract images
+    paths = []
     for c, cell in enumerate(content['cells']):
-        extract_cell_images(
+        paths += extract_cell_images(
             cell=cell,
             cell_index=c,
             output_dir=output_dir,
             verbose=verbose,
         )
+
+    return paths
 
 
 def extract_cell_images(
@@ -43,10 +46,14 @@ def extract_cell_images(
     output_dir: str | None = None,
     filename: str | None = None,
     verbose: bool = True,
-) -> None:
+) -> typing.Sequence[str]:
 
     if output_dir is None:
         output_dir = './'
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
+    paths = []
 
     for output_index, output in enumerate(cell.get('outputs', [])):
 
@@ -76,6 +83,8 @@ def extract_cell_images(
                 with open(path, 'wb') as f:
                     f.write(bytes_data)
 
+                paths.append(path)
+
             elif datatype == 'image/svg+xml':
 
                 # save svg images
@@ -88,9 +97,12 @@ def extract_cell_images(
                 with open(path, 'w') as f:
                     f.write(plaintext_data)
 
+                paths.append(path)
+
             else:
 
                 # ignore other output types
 
                 pass
 
+    return paths
