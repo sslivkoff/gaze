@@ -1,0 +1,18 @@
+
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "toolgaze"
+readme = "README.md"
+requires-python = ">=3.7"
+dynamic = ["version", "description"]
+license = {file = "LICENSE"}
+
+[project.scripts]
+gaze = "gaze.cli.cli_run:run_cli"
+
+[tool.flit.module]
+name = "gaze"
+

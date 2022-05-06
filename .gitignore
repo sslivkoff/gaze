@@ -1,0 +1,4 @@
+toolgaze.egg-info/*
+outputs/*
+notebooks/*
+dist/*
