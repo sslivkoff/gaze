@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<title>Gaze</title>
-	<meta charset="utf-8" />
-</head>
+    <head>
+        <title>Gaze</title>
+        <meta charset="utf-8" />
 
-<body class="body" style="background-color:#f6f6f6">
-	<div id="figures">
-	   {% block content %}
-	   {% endblock %}
-	</div>
-</body>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                        },
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <body class="body" style="background-color:#f6f6f6">
+        <div id="figures">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+    </body>
 
 </html>

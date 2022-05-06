@@ -1,5 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Whoa, check me out, I am included!</p>
+<section class="overflow-hidden text-gray-700 max-w-none">
+    <div class="container px-5 py-2 mx-auto lg:pt-12 lg:px-32 max-w-none">
+        <div class="flex flex-wrap -m-1 md:-m-2 max-w-none">
+
+            {% for image_path in image_paths %}
+            <div class="flex flex-wrap" style="min-width: 400px; max-width: 50%">
+                <div class="w-full p-1 md:p-2">
+                    <img
+                        alt="gallery"
+                        class="block object-contain object-center w-full h-full rounded-lg"
+                        src="{{image_path}}"
+                        >
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
 {% endblock %}

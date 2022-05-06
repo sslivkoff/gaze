@@ -26,18 +26,21 @@ def notebook_to_page(notebook, output_dir=None):
         output_dir=output_dir,
     )
 
-    render_page(image_paths=image_paths)
+    render_page(image_paths=image_paths, output_dir=output_dir)
 
 
-def render_page(image_paths):
+def render_page(image_paths, output_dir):
     print('rendering page with', len(image_paths), 'images')
-
-    # template_path = get_template_path('base')
 
     env = jinja2.Environment(
         loader=jinja2.PackageLoader('gaze'),
         autoescape=jinja2.select_autoescape(),
     )
     template = env.get_template('figure_gallery.html')
-    content = template.render()
-    print(content)
+    content = template.render({'image_paths': image_paths})
+
+    html_path = os.path.join(output_dir, 'index.html')
+    with open(html_path, 'w') as f:
+        f.write(content)
+    print()
+    print('created page at', html_path)
